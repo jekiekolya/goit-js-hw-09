@@ -8,6 +8,7 @@ const ref = {
   dataHours: document.querySelector('span[data-hours]'),
   dataMinutes: document.querySelector('span[data-minutes]'),
   dataSeconds: document.querySelector('span[data-seconds]'),
+  input: document.querySelector('input'),
 };
 // Variables
 let selectedDate = null;
@@ -21,6 +22,7 @@ const options = {
     checkInputDates();
   },
 };
+let intervalId = null;
 // Settings library flat picker
 flatpickr('input#datetime-picker', options);
 
@@ -45,7 +47,7 @@ function checkInputDates() {
 ref.btnStart.addEventListener('click', startBtnClickHandler);
 
 function startBtnClickHandler(event) {
-  setInterval(getTimeToFinish, 1000);
+  intervalId = setInterval(getTimeToFinish, 1000);
   btnStartIsActive(false);
 }
 
@@ -90,3 +92,9 @@ function makeTimeMarkup({ days, hours, minutes, seconds }) {
   ref.dataMinutes.textContent = minutes;
   ref.dataSeconds.textContent = seconds;
 }
+
+ref.input.addEventListener('change', e => {
+  clearInterval(intervalId);
+  let dateObj = addLeadingZero(convertMs(0));
+  makeTimeMarkup(dateObj);
+});
