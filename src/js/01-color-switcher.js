@@ -13,9 +13,9 @@ function getRandomHexColor() {
 }
 
 // Add listener for start
-ref.btnStart.addEventListener('click', startGenerateBodyBgColor);
+ref.btnStart.addEventListener('click', startBtnClickHandler);
 
-function startGenerateBodyBgColor(event) {
+function startBtnClickHandler(event) {
   intervalId = setInterval(changeBodyBgColor, 1000);
   event.currentTarget.disabled = true;
 }
@@ -25,9 +25,9 @@ function changeBodyBgColor() {
 }
 
 // Add listener for stop
-ref.btnStop.addEventListener('click', stopGenerateBodyBgColor);
+ref.btnStop.addEventListener('click', stopBtnClickHandler);
 
-function stopGenerateBodyBgColor(event) {
+function stopBtnClickHandler(event) {
   clearInterval(intervalId);
   ref.btnStart.disabled = false;
 }
